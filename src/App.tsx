@@ -164,7 +164,7 @@ function App() {
             </div>
             <div
               className={`flex flex-col justify-center
-                ${showLyrics ? "space-y-4" : "md:max-w-sm space-y-6"}`}
+                ${showLyrics ? "space-y-4" : `${config.fullmode ? "md:max-w-md" : "md:max-w-sm"} space-y-6`}`}
             >
               <TrackInfo
                 title={nowPlaying.item.title}
