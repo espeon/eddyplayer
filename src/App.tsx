@@ -138,9 +138,9 @@ function App() {
         <div
           className={`flex-col ${
             showLyrics
-              ? "lg:border-white/10 lg:pr-6 xl:pr-[3vw] lg:border-r"
-              : "md:flex-row p-12"
-          } items-center justify-end gap-8 ${config.fullmode ? "col-span-2 grid place-items-center" : "flex md:pr-8"}`}
+              ? "lg:border-white/10 lg:pr-6 lg:border-r"
+              : "md:flex-row"
+          } items-center gap-8 ${config.fullmode ? `col-span-2 grid place-items-center py-16 ${showLyrics && "xl:pr-[3vw]  justify-end"}` : "flex md:pr-8"}`}
           style={
             config.fullmode
               ? {
@@ -151,10 +151,10 @@ function App() {
           }
         >
           <div
-            className={`flex flex-col space-y-4 ${config.fullmode ? "w-full max-w-xs xl:max-w-sm 2xl:max-w-md" : "max-w-xs sm:max-w-lg md:max-w-xs"}`}
+            className={`flex space-y-4 ${config.fullmode ? "w-full max-w-xs xl:max-w-sm 2xl:max-w-md flex-col" : `${showLyrics ? " flex-col sm:max-w-lg" : "flex-col md:flex-row align-middle sm:max-w-sm lg:space-x-6"} max-w-xs md:max-w-xs`}`}
           >
             <div
-              className={showLyrics ? `hidden md:block max-w-md` : "max-w-md"}
+              className={showLyrics ? `hidden md:block max-w-md` : "max-w-xl"}
             >
               <AlbumCover
                 albumArt={nowPlaying.albumArt}
@@ -163,8 +163,8 @@ function App() {
               />
             </div>
             <div
-              className={`flex-grow z-10 min-w-full text-white
-                ${showLyrics ? "space-y-4" : "md:max-w-xs space-y-6"}`}
+              className={`flex flex-col justify-center
+                ${showLyrics ? "space-y-4" : "md:max-w-sm space-y-6"}`}
             >
               <TrackInfo
                 title={nowPlaying.item.title}
@@ -182,7 +182,7 @@ function App() {
             </div>
           </div>
         </div>
-        {showLyrics ? (
+        {showLyrics && (
           <div
             className={`flex-1 md:h-auto ml-3 md:min-h-fit -my-8 ${config.fullmode ? "grid place-items-center max-w-max w-full pt-32 pl-[2vw] pr-8 col-span-4 max-h-full" : "-mb-48"}`}
           >
@@ -196,8 +196,6 @@ function App() {
               isFullPage={config.fullmode}
             />
           </div>
-        ) : (
-          <div></div>
         )}
       </FancyBox>
     </div>
