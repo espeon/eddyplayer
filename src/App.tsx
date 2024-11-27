@@ -151,10 +151,14 @@ function App() {
           }
         >
           <div
-            className={`flex space-y-4 ${config.fullmode ? "w-full max-w-xs xl:max-w-sm 2xl:max-w-md flex-col" : `${showLyrics ? " flex-col sm:max-w-lg" : "flex-col md:flex-row align-middle sm:max-w-sm lg:space-x-6"} max-w-xs md:max-w-xs`}`}
+            className={`flex space-y-4 ${config.fullmode ? "w-full max-w-xs xl:max-w-xs 2xl:max-w-md flex-col" : `${showLyrics ? " flex-col sm:max-w-lg" : "flex-col md:flex-row align-middle sm:max-w-sm lg:space-x-6"} max-w-xs md:max-w-xs`}`}
           >
             <div
-              className={showLyrics ? `hidden md:block max-w-md` : "max-w-xl"}
+              className={
+                showLyrics
+                  ? `hidden md:block xl:max-w-sm 2xl:max-w-md`
+                  : "max-w-xl"
+              }
             >
               <AlbumCover
                 albumArt={nowPlaying.albumArt}
@@ -164,7 +168,7 @@ function App() {
             </div>
             <div
               className={`flex flex-col justify-center
-                ${showLyrics ? "space-y-4" : `${config.fullmode ? "md:max-w-md" : "md:max-w-sm"} space-y-6`}`}
+                ${showLyrics ? "space-y-4" : `${config.fullmode ? "md:max-w-sm xl:max-w-sm 2xl:max-w-md" : "md:max-w-sm"} space-y-6`}`}
             >
               <TrackInfo
                 title={nowPlaying.item.title}

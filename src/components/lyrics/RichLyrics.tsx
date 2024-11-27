@@ -9,7 +9,7 @@ export function RichLyrics({
   lyrics,
   copyright,
   smt,
-  isFullPage
+  isFullPage,
 }: {
   lyrics: JLF;
   copyright: string | null;
@@ -85,14 +85,14 @@ export function RichLyrics({
             {memoizedRichSections.map((section, i) => (
               <div
                 key={i + section.lines[0].text + "section"}
-                className={`text-3xl md:text-4xl lg:text-5xl ${isFullPage && "xl:text-6xl"} text-gray-400`}
+                className={`text-3xl md:text-4xl lg:text-5xl ${isFullPage && "2xl:text-6xl"} text-gray-400`}
               >
                 {section.lines.map((line, j) => {
                   const segStatus = getLyricStatus(
                     smt.currentTime,
                     line.timeStart,
                     line.timeEnd,
-                    -OFFSET
+                    -OFFSET,
                   );
 
                   let currentLine = line.text;
@@ -104,7 +104,7 @@ export function RichLyrics({
                       smt.currentTime,
                       line.bgVox?.timeStart,
                       line.bgVox?.timeEnd,
-                      -OFFSET
+                      -OFFSET,
                     );
 
                   return (
@@ -134,7 +134,7 @@ export function RichLyrics({
                           smt.currentTime,
                           seg.timeStart,
                           seg.timeEnd,
-                          -OFFSET
+                          -OFFSET,
                         );
 
                         // check if there is a space after the text
@@ -170,7 +170,7 @@ export function RichLyrics({
                               smt.currentTime,
                               seg.timeStart,
                               seg.timeEnd,
-                              -OFFSET
+                              -OFFSET,
                             );
 
                             // check if there is a space after the text

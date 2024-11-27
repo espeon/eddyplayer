@@ -11,7 +11,9 @@ export const FancyBox = ({
     return (
       <div className="w-screen h-screen min-w-full -mx-4 p-8 pointer-events-none">
         <div className="min-h-full flex relative transition-all duration-300">
-          <div className={`grid ${showLyrics?"grid-cols-1 grid-rows-6 md:grid-cols-6 md:grid-rows-1" : "grid-cols-1"} transition-all duration-300 justify-center place-content-center content-center max-h-full w-full`}>
+          <div
+            className={`grid ${showLyrics ? "grid-cols-1 grid-rows-6 md:grid-cols-6 md:grid-rows-1" : "grid-cols-1"} transition-all duration-300 justify-center place-content-center content-center max-h-full w-full`}
+          >
             {children}
           </div>
         </div>

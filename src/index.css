@@ -3,13 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
-    font-family: "Inter", system-ui, sans-serif;
-    overflow: hidden;
-  }
+    html,
+    body {
+        font-family: "Inter", system-ui, sans-serif;
+        overflow: hidden;
+    }
 }
-
-
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
@@ -81,15 +80,25 @@
 @media (min-width: 1024px) {
     .blur-vignette {
         --top-inset: 5%;
-        --bottom-inset: 17%;
+        --bottom-inset: 20%;
         --top-transition: 20%;
-        --bottom-transition: 20%;
-        --blur: 5px;
+        --bottom-transition: 100%;
+        --blur: 3px;
     }
 }
 
 /* only blur-vignette on devices that support mask-image */
-@supports (mask-image: linear-gradient(to bottom, transparent 0rem, black 8rem, black 50%, #000f 85%, transparent 98%)) {
+@supports (
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent 0rem,
+            black 8rem,
+            black 50%,
+            #000f 85%,
+            transparent 98%
+        )
+) {
     .blur-vignette {
         z-index: 1;
         position: absolute;
