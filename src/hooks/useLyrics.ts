@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { JLF, SyncedLines, SyncedMetadata } from "../types/lyrics";
+import { useCache } from "./useCache";
 
 interface LRCLibResponse {
   id: number;
@@ -135,9 +136,18 @@ export function useLyrics(
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const cacheKey = `lyrics-${artistName}-${trackName}-${albumName ?? ""}`;
+  const { getCachedData, setCachedData } = useCache<JLF>(cacheKey);
+
   useEffect(() => {
     if (!artistName || !trackName) {
       setLyrics(null);
+      return;
+    }
+
+    const cachedLyrics = getCachedData();
+    if (cachedLyrics) {
+      setLyrics(cachedLyrics);
       return;
     }
 
@@ -164,18 +174,22 @@ export function useLyrics(
         if (umiLyrics?.richsync) {
           // If UMI has richsync, use it
           setLyrics(umiLyrics);
+          setCachedData(umiLyrics);
         } else if (
           lrcLibLyrics &&
           (lrcLibLyrics as JLF).lines?.lines?.length > 0
         ) {
           // If LRCLib has lyrics, use it
           setLyrics(lrcLibLyrics);
+          setCachedData(lrcLibLyrics);
         } else if (umiLyrics) {
           // Fallback to UMI if available
           setLyrics(umiLyrics);
+          setCachedData(umiLyrics);
         } else if (lrcLibLyrics) {
           // Last resort: use LRCLib even if empty
           setLyrics(lrcLibLyrics);
+          setCachedData(lrcLibLyrics);
         } else {
           // No lyrics found from either source
           throw new Error("No lyrics found");

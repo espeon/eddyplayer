@@ -66,7 +66,7 @@
 }
 
 /* if we are on a mobile device, we want to have different vignette props */
-@media (max-width: 1024px) {
+@media (max-width: 720px) {
     .blur-vignette {
         --top-inset: 5%;
         --bottom-inset: 17%;
@@ -76,11 +76,22 @@
     }
 }
 
-/* if we are on a desktop device, we want to have different vignette props */
-@media (min-width: 1024px) {
+/* if we are on a tablet device, we want to have different vignette props */
+@media (min-width: 721px) and (max-width: 1027px) {
     .blur-vignette {
         --top-inset: 5%;
-        --bottom-inset: 20%;
+        --bottom-inset: 10%;
+        --top-transition: 20%;
+        --bottom-transition: 10%;
+        --blur: 0px;
+    }
+}
+
+/* if we are on a desktop device, we want to have different vignette props */
+@media (min-width: 1028px) {
+    .blur-vignette {
+        --top-inset: 5%;
+        --bottom-inset: 24%;
         --top-transition: 20%;
         --bottom-transition: 100%;
         --blur: 3px;

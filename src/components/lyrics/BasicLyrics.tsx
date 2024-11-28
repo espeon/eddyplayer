@@ -63,7 +63,7 @@ export const BasicLyrics = memo(function BasicLyrics({
               segStatus.isActive
                 ? "scale-100 text-white"
                 : "scale-90 text-white/60"
-            } ${isFullPage ? "2xl:text-6xl mb-6 md:mb-8 lg:mb-10 xl:mb-12" : " mb-6 md:mb-8"} lg:transition-all lg:duration-500 ease-in-out`}
+            } ${isFullPage ? "2xl:text-6xl mb-6 md:mb-8 lg:mb-10 2xl:mb-12" : " mb-6 md:mb-8"} lg:transition-all lg:duration-500 ease-in-out`}
           >
             <div
               ref={
@@ -73,7 +73,7 @@ export const BasicLyrics = memo(function BasicLyrics({
                   ? activeLyricRef
                   : null
               }
-              className={`top-32 absolute rounded-full bg-blue-500`}
+              className={`top-32 2xl:top-56 absolute rounded-full bg-blue-500`}
             />
             {line.text || "· · ·"}
           </div>

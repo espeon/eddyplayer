@@ -73,10 +73,6 @@ export function Lyrics({
     isActivelyPlaying: !paused,
   });
 
-  useEffect(() => {
-    console.log("lyrics", lyrics);
-  }, [lyrics]);
-
   if (isLoading) {
     return (
       <div className="flex-1 h-full relative text-white -mx-8 px-4 md:px-8 min-h-max">

@@ -116,7 +116,7 @@ export function RichLyrics({
                           textAlign: section.lyricPos as "center" | "left",
                         } as CSSProperties
                       }
-                      className={`transition-all bg-transparent duration-1000 ease-in-out md:mb-2 lg:mb-4 py-3 leading-tight origin-[--lyric-line-dir]
+                      className={`transition-all bg-transparent duration-1000 ease-in-out lg:mb-2 2xl:mb-4 py-3 leading-tight origin-[--lyric-line-dir]
                         ${segStatus.isActive ? "text-gray-200/75 scale-100" : "scale-90"}`}
                     >
                       <div
@@ -127,7 +127,7 @@ export function RichLyrics({
                             ? activeLyricRef
                             : null
                         }
-                        className={`top-32 absolute rounded-full bg-blue-500`}
+                        className={`top-32 2xl:top-56 absolute rounded-full bg-blue-500`}
                       />
                       {line.segments.map((seg, k) => {
                         const segStatus = getLyricStatus(
