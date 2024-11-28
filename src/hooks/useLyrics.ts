@@ -91,8 +91,8 @@ async function fetchWithTimeout(url: string, timeout = 750) {
     return response;
   } catch (error) {
     clearTimeout(timeoutId);
-    if (error.name === 'AbortError') {
-      throw new Error('Request timed out');
+    if (error.name === "AbortError") {
+      throw new Error("Request timed out");
     }
     throw error;
   }
@@ -111,7 +111,10 @@ async function fetchUMI(
     ...(albumName && { album: albumName }),
   });
 
-  const response = await fetchWithTimeout(`https://umi.bna.lut.li/lyrics?${params}`);
+  const response = await fetchWithTimeout(
+    // todo: configure umi endpoint!!!
+    `https://umi.uwu.wang/lyrics?${params}`,
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch lyrics from Umi");
@@ -145,21 +148,26 @@ export function useLyrics(
       try {
         // Fetch from both sources concurrently
         const [umiResult, lrcLibResult] = await Promise.allSettled([
-          fetchUMI(artistName, trackName),
+          fetchUMI(artistName, trackName, albumName),
           fetchLRCLib(artistName, trackName, albumName, duration),
         ]);
 
         // Process UMI result
-        const umiLyrics = umiResult.status === 'fulfilled' ? umiResult.value : null;
-        
+        const umiLyrics =
+          umiResult.status === "fulfilled" ? umiResult.value : null;
+
         // Process LRCLib result
-        const lrcLibLyrics = lrcLibResult.status === 'fulfilled' ? lrcLibResult.value : null;
+        const lrcLibLyrics =
+          lrcLibResult.status === "fulfilled" ? lrcLibResult.value : null;
 
         // Decide which lyrics to use
         if (umiLyrics?.richsync) {
           // If UMI has richsync, use it
           setLyrics(umiLyrics);
-        } else if (lrcLibLyrics && (lrcLibLyrics as JLF).lines?.lines?.length > 0) {
+        } else if (
+          lrcLibLyrics &&
+          (lrcLibLyrics as JLF).lines?.lines?.length > 0
+        ) {
           // If LRCLib has lyrics, use it
           setLyrics(lrcLibLyrics);
         } else if (umiLyrics) {
@@ -172,7 +180,6 @@ export function useLyrics(
           // No lyrics found from either source
           throw new Error("No lyrics found");
         }
-
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to fetch lyrics");
         setLyrics(null);
