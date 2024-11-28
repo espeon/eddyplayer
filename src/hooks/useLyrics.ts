@@ -81,7 +81,7 @@ async function fetchLRCLib(
   }
 }
 
-async function fetchWithTimeout(url: string, timeout = 750) {
+async function fetchWithTimeout(url: string, timeout = 1750) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
