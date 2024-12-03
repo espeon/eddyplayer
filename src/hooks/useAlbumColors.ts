@@ -68,7 +68,7 @@ export function useAlbumColors(imageUrl: string, transitionDuration = 1000) {
 
     const img = new Image();
     img.crossOrigin = "Anonymous";
-    img.src = "https://corsproxy.io/?" + imageUrl;
+    img.src = imageUrl;
 
     const loadColors = async () => {
       try {
