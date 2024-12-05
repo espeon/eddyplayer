@@ -167,7 +167,7 @@ function App() {
               />
             </div>
             <div
-              className={`flex flex-col justify-center
+              className={`flex flex-col justify-center z-50
                 ${showLyrics ? "space-y-4" : `${config.fullmode ? "md:max-w-sm xl:max-w-sm 2xl:max-w-md" : "md:max-w-sm"} space-y-6`}`}
             >
               <TrackInfo
