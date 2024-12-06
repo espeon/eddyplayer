@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, memo } from "react";
-import { getLyricStatus } from "./Lyrics";
+import { getLyricStatus } from "./lyricStatus";
 import { JLF } from "../../types/lyrics";
 
 export const BasicLyrics = memo(function BasicLyrics({
@@ -21,8 +21,7 @@ export const BasicLyrics = memo(function BasicLyrics({
         activeLyricRef.current.scrollIntoView({
           // if we are after the first three seconds and we've just loaded, we want to scroll instantly no matter device size
           //behavior: isMd && (hasJustLoaded && currentTime * 1000 > 3) ? "smooth" : "instant",
-          behavior:
-            hasJustLoaded && currentTime * 1000 > 3 ? "smooth" : "instant",
+          behavior: hasJustLoaded && currentTime > 3 ? "smooth" : "instant",
           block: "center",
         });
         if (!hasJustLoaded) {
@@ -31,6 +30,8 @@ export const BasicLyrics = memo(function BasicLyrics({
       }
     }, 250); // Use timeout instead of interval
     return () => clearTimeout(timer);
+    // we want this to *only* activate when the activeLyricRef changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeLyricRef.current]);
 
   if (lyrics == null) {
@@ -44,17 +45,17 @@ export const BasicLyrics = memo(function BasicLyrics({
       {/* if we are in the first like three seconds and no line is active, we set ref to this to scroll up */}
       <div
         ref={
-          currentTime * 1000 > 5 && currentTime < lines.lines[0]?.time
+          currentTime > 5 && currentTime < lines.lines[0]?.time
             ? activeLyricRef
             : null
         }
       />
       {lyrics?.lines.lines.map((line, i) => {
         const segStatus = getLyricStatus(
-          currentTime * 1000,
+          currentTime,
           line.time,
           lines.lines[i + 1]?.time ?? lines.linesEnd,
-          500, //1000
+          0.5, //1000
         );
         return (
           <div
@@ -67,13 +68,13 @@ export const BasicLyrics = memo(function BasicLyrics({
           >
             <div
               ref={
-                (segStatus.secondsBeforeActive < 500 &&
+                (segStatus.secondsBeforeActive < 0.5 &&
                   segStatus.secondsBeforeActive > 0) ||
                 (segStatus.isActive && segStatus.percentage < 50)
                   ? activeLyricRef
                   : null
               }
-              className={`top-48 md:top-32 ${isFullPage && "2xl:top-56"} absolute rounded-full bg-blue-500`}
+              className={`top-48 md:top-32 ${isFullPage && "2xl:top-56"}  absolute rounded-full bg-blue-500`}
             />
             {line.text || "· · ·"}
           </div>

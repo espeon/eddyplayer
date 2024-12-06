@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { ParsedLyric, useLyrics } from "../../hooks/useLyrics";
+import { useRef } from "react";
+import { useLyrics } from "../../hooks/useLyrics";
 import { useSmoothTimer } from "../../hooks/useSmoothTimer";
 import { JLF } from "../../types/lyrics";
 import { BasicLyrics } from "./BasicLyrics";
@@ -13,41 +13,6 @@ interface LyricsProps {
   position: number;
   paused: boolean;
   isFullPage: boolean;
-}
-
-export function getLyricStatus(
-  currentTime: number,
-  lyricStart: number,
-  lyricEnd: number,
-  offset: number = 0,
-) {
-  // default offset (animations look weird without this)
-  offset = offset + 0.1;
-
-  // add the offset to the current time
-  currentTime = Number(currentTime.toFixed(3)) + offset;
-
-  // Check if the lyric is active
-  const isActive = currentTime > lyricStart && currentTime < lyricEnd;
-  // Initialize variables for percentage and elapsed seconds
-  let percentage = 0;
-  let secondsAfterActive = 0;
-
-  if (isActive) {
-    const duration = lyricEnd - lyricStart;
-    secondsAfterActive = currentTime - lyricStart;
-    percentage = (secondsAfterActive / duration) * 100;
-  } else if (currentTime > lyricEnd) {
-    secondsAfterActive = currentTime - lyricEnd;
-  }
-
-  return {
-    currentTimePlusOffset: currentTime,
-    isActive: isActive,
-    percentage: Number(percentage.toFixed(2)),
-    secondsAfterActive: secondsAfterActive,
-    secondsBeforeActive: lyricStart - currentTime,
-  };
 }
 
 export function Lyrics({
@@ -124,7 +89,12 @@ export function Lyrics({
         <div className="h-[12rem]"></div>
         {lyrics && (lyrics as JLF).lines !== undefined ? (
           lyrics && (lyrics as JLF).richsync ? (
-            <RichLyrics lyrics={lyrics as JLF} copyright={""} smt={smt} isFullPage={isFullPage} />
+            <RichLyrics
+              lyrics={lyrics as JLF}
+              copyright={""}
+              smt={smt}
+              isFullPage={isFullPage}
+            />
           ) : (
             <BasicLyrics
               lyrics={lyrics as JLF}

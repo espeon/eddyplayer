@@ -2,7 +2,7 @@
 import { useEffect, useRef, useMemo, useCallback, CSSProperties } from "react";
 import { JLF } from "../../types/lyrics";
 import { mapRange } from "../../helpers/animath";
-import { getLyricStatus } from "./Lyrics";
+import { getLyricStatus } from "./lyricStatus";
 import { TimerControls } from "../../hooks/useSmoothTimer";
 
 export function RichLyrics({
@@ -45,6 +45,8 @@ export function RichLyrics({
       }
     }, 250); // Use timeout instead of interval
     return () => clearTimeout(timer);
+    // we need this to activate when the activeLyricRef changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rich, activeLyricRef.current]);
 
   const getLyricStyles = useCallback(
