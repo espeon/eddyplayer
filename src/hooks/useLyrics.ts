@@ -35,11 +35,11 @@ export function lrcToJlf(
     if (timeMatch) {
       const minutes = parseInt(timeMatch[1], 10);
       const seconds = parseFloat(timeMatch[2]);
-      const timeInMs = (minutes * 60 + seconds) * 1000;
+      const timeSeconds = minutes * 60 + seconds;
       const text = line.replace(/\[\d{2}:\d{2}\.\d{2}\]/, "").trim();
 
-      syncedLines.lines.push({ time: timeInMs, text });
-      syncedLines.linesEnd = Math.max(syncedLines.linesEnd, timeInMs);
+      syncedLines.lines.push({ time: timeSeconds, text });
+      syncedLines.linesEnd = Math.max(syncedLines.linesEnd, timeSeconds);
     }
   });
 
