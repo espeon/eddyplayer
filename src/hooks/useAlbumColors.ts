@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Vibrant from "node-vibrant";
 
 type RGB = [number, number, number];
@@ -46,13 +46,16 @@ function shuffleArray(array: unknown[]): void {
 }
 
 export function useAlbumColors(imageUrl: string, transitionDuration = 1000) {
-  const defaultColors: RGB[] = [
-    [26, 26, 26], // #1a1a1a
-    [0, 0, 0], // #000000
-    [51, 51, 51], // #333333
-    [26, 26, 26], // #1a1a1a
-    [0, 0, 0], // #000000
-  ];
+  const defaultColors: RGB[] = useMemo(
+    () => [
+      [26, 26, 26], // #1a1a1a
+      [0, 0, 0], // #000000
+      [51, 51, 51], // #333333
+      [26, 26, 26], // #1a1a1a
+      [0, 0, 0], // #000000
+    ],
+    [],
+  );
 
   const [colorState, setColorState] = useState<ColorState>({
     current: defaultColors,
@@ -66,17 +69,27 @@ export function useAlbumColors(imageUrl: string, transitionDuration = 1000) {
   useEffect(() => {
     if (!imageUrl) return;
 
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = imageUrl;
+    const getImage = async (): Promise<HTMLImageElement> => {
+      // If imageSource is a URL string
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = imageUrl;
+
+      return new Promise((resolve, reject) => {
+        img.onload = () => resolve(img);
+        img.onerror = () => {
+          // try again, with cors this time
+          img.crossOrigin = "anonymous";
+          img.src = "https://api.cors.lol/?url=" + imageUrl;
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+        };
+      });
+    };
 
     const loadColors = async () => {
       try {
-        await new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = reject;
-        });
-
+        const img = await getImage();
         // Create a new Vibrant instance with quality and samples options
         const v = new Vibrant(img, {
           quality: 1,
