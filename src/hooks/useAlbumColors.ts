@@ -72,7 +72,7 @@ export function useAlbumColors(imageUrl: string, transitionDuration = 1000) {
     const getImage = async (): Promise<HTMLImageElement> => {
       // If imageSource is a URL string
       const img = new Image();
-      img.crossOrigin = "Anonymous";
+      img.crossOrigin = "anonymous";
       img.src = imageUrl;
 
       return new Promise((resolve, reject) => {
