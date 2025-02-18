@@ -73,7 +73,8 @@ export function useAlbumColors(imageUrl: string, transitionDuration = 1000) {
       // If imageSource is a URL string
       const img = new Image();
       img.crossOrigin = "anonymous";
-      img.src = imageUrl;
+      // this is my api url plsdontabuse!
+      img.src = imageUrl.replace("https://resources.tidal.com/images/", "https://resources-tidal.uwu.wang/img/")
 
       return new Promise((resolve, reject) => {
         img.onload = () => resolve(img);
