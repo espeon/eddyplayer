@@ -5,6 +5,7 @@ interface Config {
   apiKey: string;
   currentMode: string;
   fullmode: boolean;
+  disappearOnLineEnd: boolean;
 }
 
 const CONFIG_KEY = "eddy-now-playing-config";
@@ -19,6 +20,7 @@ export function useConfig() {
           apiKey: import.meta.env.VITE_API_KEY || "",
           currentMode: "lyrics",
           fullmode: false,
+          disappearOnLineEnd: false,
         };
   });
 
@@ -39,13 +41,19 @@ export function useConfig() {
       });
   }, [config]);
 
-  const updateConfig = (apiUrl: string, apiKey: string, fullmode: boolean) => {
+  const updateConfig = (
+    apiUrl: string,
+    apiKey: string,
+    fullmode: boolean,
+    disappearOnLineEnd: boolean,
+  ) => {
     // remove trailing slash from api url
     setConfig((prev) => ({
       ...prev,
       apiUrl: apiUrl.replace(/\/$/, ""),
       apiKey,
       fullmode,
+      disappearOnLineEnd,
     }));
   };
 

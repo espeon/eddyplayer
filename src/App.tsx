@@ -95,6 +95,7 @@ function App() {
             currentApiUrl={config.apiUrl}
             currentApiKey={config.apiKey}
             currentFullmode={config.fullmode}
+            currentDisappearOnLineEnd={config.disappearOnLineEnd}
           />
         </div>
       </div>
@@ -110,6 +111,7 @@ function App() {
           currentApiUrl={config.apiUrl}
           currentApiKey={config.apiKey}
           currentFullmode={config.fullmode}
+          currentDisappearOnLineEnd={config.disappearOnLineEnd}
         />
       </div>
     );
@@ -124,6 +126,7 @@ function App() {
         currentApiUrl={config.apiUrl}
         currentApiKey={config.apiKey}
         currentFullmode={config.fullmode}
+        currentDisappearOnLineEnd={config.disappearOnLineEnd}
       />
 
       <LyricsToggle
@@ -198,6 +201,7 @@ function App() {
               position={nowPlaying.position}
               paused={nowPlaying.paused}
               isFullPage={config.fullmode}
+              isDisappearOnLineEnd={config.disappearOnLineEnd}
             />
           </div>
         )}

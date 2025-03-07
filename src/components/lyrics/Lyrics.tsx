@@ -13,6 +13,7 @@ interface LyricsProps {
   position: number;
   paused: boolean;
   isFullPage: boolean;
+  isDisappearOnLineEnd: boolean;
 }
 
 export function Lyrics({
@@ -23,6 +24,7 @@ export function Lyrics({
   position,
   paused,
   isFullPage,
+  isDisappearOnLineEnd,
 }: LyricsProps) {
   const { lyrics, isLoading, error } = useLyrics(
     artistName,
@@ -94,12 +96,14 @@ export function Lyrics({
               copyright={""}
               smt={smt}
               isFullPage={isFullPage}
+              isDisappearOnLineEnd={isDisappearOnLineEnd}
             />
           ) : (
             <BasicLyrics
               lyrics={lyrics as JLF}
               currentTime={smt.currentTime}
               isFullPage={isFullPage}
+              isDisappearOnLineEnd={isDisappearOnLineEnd}
             />
           )
         ) : (

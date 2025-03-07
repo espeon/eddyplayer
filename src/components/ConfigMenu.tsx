@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { Settings, X } from "lucide-react";
 
 interface ConfigMenuProps {
-  onSave: (apiUrl: string, apiKey: string, fullmode: boolean) => void;
+  onSave: (
+    apiUrl: string,
+    apiKey: string,
+    fullmode: boolean,
+    disappearOnLineEnd: boolean,
+  ) => void;
   currentApiUrl: string;
   currentApiKey: string;
   currentFullmode: boolean;
+  currentDisappearOnLineEnd: boolean;
 }
 
 export function ConfigMenu({
@@ -13,21 +19,25 @@ export function ConfigMenu({
   currentApiUrl,
   currentApiKey,
   currentFullmode,
+  currentDisappearOnLineEnd,
 }: ConfigMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [apiUrl, setApiUrl] = useState(currentApiUrl);
   const [apiKey, setApiKey] = useState(currentApiKey);
   const [fullmode, setFullmode] = useState(currentFullmode);
+  const [disappearOnLineEnd, setDisappearOnLineEnd] = useState(
+    currentDisappearOnLineEnd,
+  );
 
   const handleSave = () => {
-    onSave(apiUrl, apiKey, fullmode);
+    onSave(apiUrl, apiKey, fullmode, disappearOnLineEnd);
     setIsOpen(false);
   };
 
   const handleClear = () => {
     setApiUrl("");
     setApiKey("");
-    onSave("", "", false);
+    onSave("", "", false, false);
     setIsOpen(false);
   };
 
@@ -105,6 +115,22 @@ export function ConfigMenu({
                   type="checkbox"
                   checked={fullmode}
                   onChange={(e) => setFullmode(e.target.checked)}
+                  className="w-4 h-4 text-white border border-white/10 focus:border-white/30 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white/70 mb-1">
+                  Disappear on line end
+                </label>
+                <label className="block text-xs font-medium text-white/70 mb-1">
+                  When a line is finished, it will fade out similarly to Apple
+                  Music.
+                </label>
+                <input
+                  type="checkbox"
+                  checked={disappearOnLineEnd}
+                  onChange={(e) => setDisappearOnLineEnd(e.target.checked)}
                   className="w-4 h-4 text-white border border-white/10 focus:border-white/30 focus:outline-none"
                 />
               </div>

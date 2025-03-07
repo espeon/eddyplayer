@@ -6,10 +6,12 @@ export const BasicLyrics = memo(function BasicLyrics({
   lyrics,
   currentTime,
   isFullPage,
+  isDisappearOnLineEnd,
 }: {
   lyrics: JLF | null;
   currentTime: number;
   isFullPage: boolean;
+  isDisappearOnLineEnd: boolean;
 }) {
   const activeLyricRef = useRef<HTMLDivElement | null>(null);
   // for instant scroll on first load
@@ -63,7 +65,9 @@ export const BasicLyrics = memo(function BasicLyrics({
             className={`w-full max-w-full transition-transform bg-transparent duration-0 mb-6 md:mb-8 pl-2 text-left origin-left font-semibold text-4xl lg:text-5xl ${
               segStatus.isActive
                 ? "scale-100 text-white"
-                : "scale-90 text-white/60"
+                : segStatus.secondsBeforeActive || !isDisappearOnLineEnd
+                  ? "scale-90 text-white/60"
+                  : "text-white/0 scale-90"
             } ${isFullPage ? "2xl:text-6xl mb-6 md:mb-8 lg:mb-10 2xl:mb-12" : " mb-6 md:mb-8"} lg:transition-all lg:duration-500 ease-in-out`}
           >
             <div

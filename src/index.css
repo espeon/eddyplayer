@@ -100,8 +100,7 @@
 
 /* only blur-vignette on devices that support mask-image */
 @supports (
-    mask-image:
-        linear-gradient(
+    mask-image: linear-gradient(
             to bottom,
             transparent 0rem,
             black 8rem,
@@ -119,10 +118,12 @@
         pointer-events: none; /* Allows clicking through the vignette */
 
         /* Separated gradient for more control */
-        --top-gradient: black, black var(--top-inset),
+        --top-gradient:
+            black, black var(--top-inset),
             transparent calc(var(--top-inset) + var(--top-transition));
 
-        --bottom-gradient: transparent
+        --bottom-gradient:
+            transparent
                 calc(100% - var(--bottom-transition) - var(--bottom-inset)),
             black calc(100% - var(--bottom-inset)), black;
 
