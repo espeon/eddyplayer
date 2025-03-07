@@ -15,15 +15,15 @@ function rgbToHex([r, g, b]: RGB): string {
   );
 }
 
-function hexToRgb(hex: string): RGB {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return [0, 0, 0];
-  return [
-    parseInt(result[1], 16),
-    parseInt(result[2], 16),
-    parseInt(result[3], 16),
-  ];
-}
+// function hexToRgb(hex: string): RGB {
+//   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+//   if (!result) return [0, 0, 0];
+//   return [
+//     parseInt(result[1], 16),
+//     parseInt(result[2], 16),
+//     parseInt(result[3], 16),
+//   ];
+// }
 
 function interpolateColor(color1: RGB, color2: RGB, progress: number): RGB {
   return [
@@ -35,14 +35,6 @@ function interpolateColor(color1: RGB, color2: RGB, progress: number): RGB {
 
 function easeInOut(t: number): number {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-/* Randomize array in-place using Durstenfeld shuffle algorithm */
-function shuffleArray(array: unknown[]): void {
-  for (let i = array.length - 1; i >= 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
 }
 
 export function useAlbumColors(imageUrl: string, transitionDuration = 1000) {
@@ -74,7 +66,10 @@ export function useAlbumColors(imageUrl: string, transitionDuration = 1000) {
       const img = new Image();
       img.crossOrigin = "anonymous";
       // this is my api url plsdontabuse!
-      img.src = imageUrl.replace("https://resources.tidal.com/images/", "https://resources-tidal.uwu.wang/img/")
+      img.src = imageUrl.replace(
+        "https://resources.tidal.com/images/",
+        "https://resources-tidal.uwu.wang/img/",
+      );
 
       return new Promise((resolve, reject) => {
         img.onload = () => resolve(img);

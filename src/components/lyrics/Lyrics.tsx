@@ -46,9 +46,6 @@ export function Lyrics({
         <div
           className={`h-screen max-h-[88vh] ${isFullPage ? "md:max-h-[76vh]" : "md:max-h-[calc(33.5rem)] -mb-36"}`}
         >
-          <h2 className="absolute top-8 text-xl font-semibold hidden md:block">
-            Lyrics
-          </h2>
           <div className="text-white/60 text-6xl pt-16">Loading...</div>
         </div>
       </div>
@@ -61,9 +58,6 @@ export function Lyrics({
         <div
           className={`h-screen max-h-[88vh] ${isFullPage ? "md:max-h-[76vh]" : "md:max-h-[calc(33.5rem)] -mb-36"}`}
         >
-          <h2 className="absolute top-8 text-xl font-semibold hidden md:block">
-            Lyrics
-          </h2>
           <div className="text-white/60 text-6xl pt-16">No lyrics found</div>
           <div>{error}</div>
         </div>
@@ -76,9 +70,6 @@ export function Lyrics({
   // get the type of lyrics. is it jlf or parsed lyrics
   return (
     <div className="flex-1 h-full relative overflow-x-hidden text-white -mx-8 px-4 md:px-8 min-h-max">
-      <h2 className="z-10 absolute top-8 text-xl font-semibold hidden md:block">
-        Lyrics
-      </h2>
       <div className="blur-vignette" />
       <div
         ref={scrollContainerRef}

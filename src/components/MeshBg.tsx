@@ -6,14 +6,14 @@ const MeshBg = ({
   colors,
   className = "",
 }: {
-  colors: any;
+  colors: string[];
   className?: string;
 }) => {
   const [vibrant, muted, darkVibrant, darkMuted] = colors;
-  const [breatheBL, setBreatheBL] = useState(50);
-  const [breatheBR, setBreatheBR] = useState(50);
-  const [breatheTR, setBreatheTR] = useState(50);
-  const [positions, setPositions] = useState({
+  const [breatheBL] = useState(50);
+  const [breatheBR] = useState(50);
+  const [breatheTR] = useState(50);
+  const [positions] = useState({
     topLeft: { x: 25, y: 25 },
     topRight: { x: 85, y: 15 },
     bottomLeft: { x: 45, y: 95 },
@@ -23,11 +23,11 @@ const MeshBg = ({
 
   // useEffect(() => {
   //   const animateBreathe = () => {
-  //     const time = Date.now() / 1000
-  //     setBreatheBL(50 + Math.sin(time) * 25)
-  //     setBreatheBR(50 + Math.cos(time) * 25)
-  //     setBreatheTR(50 + Math.sin(time / 1.2) * 25)
-  //   }
+  //     const time = Date.now() / 1000;
+  //     setBreatheBL(50 + Math.sin(time) * 25);
+  //     setBreatheBR(50 + Math.cos(time) * 25);
+  //     setBreatheTR(50 + Math.sin(time / 1.2) * 25);
+  //   };
 
   //   // const moveSpots = () => {
   //   //   setPositions({
@@ -39,21 +39,25 @@ const MeshBg = ({
   //   //   })
   //   // }
 
-  //   const breatheIntervalId = setInterval(animateBreathe, 50) // Update every 50ms for smooth animation
+  //   const breatheIntervalId = setInterval(animateBreathe, 50); // Update every 50ms for smooth animation
   //   //const moveIntervalId = setInterval(moveSpots, 5000) // Move spots every 5 seconds
 
   //   return () => {
-  //     clearInterval(breatheIntervalId)
+  //     clearInterval(breatheIntervalId);
   //     //clearInterval(moveIntervalId)
-  //   } // Cleanup on unmount
-  // }, [])
+  //   }; // Cleanup on unmount
+  // }, []);
 
   return (
     <div
-      className={`absolute inset-0 transition-all duration-5000 ease-in-out pointer-events-none ${className}`}
-      style={{
-        backgroundColor: vibrant,
-        backgroundImage: `
+      className={`fixed inset-[-3%] transition-all duration-5000 ease-in-out pointer-events-none ${className} overflow-hidden blur-2xl`}
+      style={{ backgroundColor: darkVibrant }}
+    >
+      <div
+        className={`absolute inset-[-30%] aspect-square transition-all duration-5000 ease-in-out pointer-events-none ${className} overflow-clip`}
+        style={{
+          backgroundColor: "#0000",
+          backgroundImage: `
           radial-gradient(circle at ${positions.topLeft.x}% ${positions.topLeft.y}%, ${vibrant} 0px, transparent 50%),
           radial-gradient(
             circle at ${positions.topRight.x}% ${positions.topRight.y}%,
@@ -101,8 +105,23 @@ const MeshBg = ({
             transparent 50%
           )
         `,
-      }}
-    />
+          animation: "spin 125s linear infinite",
+        }}
+      />
+
+      <div
+        className="absolute inset-[20%] animate-spin aspect-square" // Make this one smaller than the outer
+        style={{
+          backgroundImage: `
+                radial-gradient(circle at 30% 30%, ${darkVibrant}99 0px, transparent 40%),
+                radial-gradient(circle at 70% 70%, ${muted}99 0px, transparent 40%),
+                radial-gradient(circle at 30% 70%, ${darkMuted}99 0px, transparent 40%),
+                radial-gradient(circle at 70% 30%, ${darkMuted}99 0px, transparent 40%)
+              `,
+          animation: "spin 85s linear infinite reverse", // Spin in opposite direction
+        }}
+      />
+    </div>
   );
 };
 

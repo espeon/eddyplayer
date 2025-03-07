@@ -152,3 +152,16 @@
         overflow: visible;
     }
 }
+
+.rotate {
+    animation: rotateAnimation 10s linear infinite; /* Example animation */
+}
+
+@keyframes rotateAnimation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

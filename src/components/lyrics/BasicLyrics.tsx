@@ -78,7 +78,7 @@ export const BasicLyrics = memo(function BasicLyrics({
                   ? activeLyricRef
                   : null
               }
-              className={`top-48 md:top-32 ${isFullPage && "2xl:top-56"}  absolute rounded-full bg-blue-500`}
+              className={`top-48 md:top-32 ${isFullPage && (isDisappearOnLineEnd ? "2xl:top-80" : "2xl:top-56")}  absolute rounded-full bg-blue-500`}
             />
             {line.text || "· · ·"}
           </div>
