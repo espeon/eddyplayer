@@ -15,7 +15,7 @@ export function getLyricStatus(
   offset: number = 0,
 ): LyricStatus {
   if (lyricEnd < lyricStart) {
-    console.err("lyricEnd must be greater than lyricStart");
+    console.warn("lyricEnd must be greater than lyricStart");
     lyricEnd = lyricStart
   }
   if (
