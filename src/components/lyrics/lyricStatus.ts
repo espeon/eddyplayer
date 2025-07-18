@@ -15,7 +15,8 @@ export function getLyricStatus(
   offset: number = 0,
 ): LyricStatus {
   if (lyricEnd < lyricStart) {
-    throw new Error("lyricEnd must be greater than lyricStart");
+    console.err("lyricEnd must be greater than lyricStart");
+    lyricEnd = lyricStart
   }
   if (
     isNaN(outsideCurrentTime) ||
