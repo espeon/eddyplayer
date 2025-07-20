@@ -195,6 +195,7 @@ export function useLyrics(
           throw new Error("No lyrics found");
         }
       } catch (err) {
+        console.error("Error encountered:", err);
         setError(err instanceof Error ? err.message : "Failed to fetch lyrics");
         setLyrics(null);
       } finally {
