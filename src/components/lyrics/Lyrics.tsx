@@ -69,7 +69,7 @@ export function Lyrics({
 
   // get the type of lyrics. is it jlf or parsed lyrics
   return (
-    <div className="flex-1 h-full relative overflow-x-hidden text-white -mx-8 px-4 md:px-8 min-h-max">
+    <div className="flex-1 h-full relative overflow-x-hidden text-white -mx-8 px-4 md:px-8 min-h-max animate-in fade-in duration-750">
       <div className="blur-vignette" />
       <div
         ref={scrollContainerRef}
@@ -79,7 +79,7 @@ export function Lyrics({
           maskComposite: "intersect",
         }}
       >
-        <div className="h-[12rem]"></div>
+        <div className="h-48"></div>
         {lyrics && (lyrics as JLF).lines !== undefined ? (
           lyrics && (lyrics as JLF).richsync ? (
             <RichLyrics

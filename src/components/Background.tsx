@@ -986,7 +986,7 @@ export default function MeshArtBackground({
   bokehSamples = 50, // Post-processing bokeh samples
   enableNavigationTransition = true,
   transitionDuration = 800, // ms
-  backgroundOpacity = 0.15, // Background transparency
+  backgroundOpacity = 1, // Background transparency
   removeBlur = false,
   noFadeIn = false,
   onLoadingStateChange,

@@ -51,7 +51,7 @@ export function ConfigMenu({
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
           <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md relative">
             <button
               onClick={() => setIsOpen(false)}
@@ -84,7 +84,7 @@ export function ConfigMenu({
                   type="text"
                   value={apiUrl}
                   onChange={(e) => setApiUrl(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white border border-white/10 focus:border-white/30 focus:outline-none"
+                  className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white border border-white/10 focus:border-white/30 focus:outline-hidden"
                   placeholder="Enter API URL"
                 />
               </div>
@@ -97,7 +97,7 @@ export function ConfigMenu({
                   type="password"
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white border border-white/10 focus:border-white/30 focus:outline-none"
+                  className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white border border-white/10 focus:border-white/30 focus:outline-hidden"
                   placeholder="Enter API Key"
                 />
               </div>
@@ -115,7 +115,7 @@ export function ConfigMenu({
                   type="checkbox"
                   checked={fullmode}
                   onChange={(e) => setFullmode(e.target.checked)}
-                  className="w-4 h-4 text-white border border-white/10 focus:border-white/30 focus:outline-none"
+                  className="w-4 h-4 text-white border border-white/10 focus:border-white/30 focus:outline-hidden"
                 />
               </div>
 
@@ -131,7 +131,7 @@ export function ConfigMenu({
                   type="checkbox"
                   checked={disappearOnLineEnd}
                   onChange={(e) => setDisappearOnLineEnd(e.target.checked)}
-                  className="w-4 h-4 text-white border border-white/10 focus:border-white/30 focus:outline-none"
+                  className="w-4 h-4 text-white border border-white/10 focus:border-white/30 focus:outline-hidden"
                 />
               </div>
 

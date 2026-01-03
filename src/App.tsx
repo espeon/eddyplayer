@@ -18,7 +18,7 @@ function ConfigScreen() {
   const { config, updateConfig } = useConfig();
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black flex items-center justify-center p-4">
       <div className="bg-black/30 backdrop-blur-xl rounded-xl p-8 shadow-2xl max-w-md w-full">
         <h1 className="text-2xl font-bold text-white mb-6">Get started with EddyPlayer</h1>
         <p className="text-white/70 mb-8">Please configure your API settings to continue.</p>
@@ -38,7 +38,7 @@ function LoadingScreen() {
   const { config, updateConfig } = useConfig();
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black flex items-center justify-center">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <Loader2 className="w-8 h-8 text-white animate-spin" />
         <span className="text-white text-xl">Loading...</span>
