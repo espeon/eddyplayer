@@ -204,7 +204,7 @@ const fragmentShader = `
     // fluidColor *= mix(coolShift, warmShift, colorShift);
 
     // Apply saturation boost instead of color shifting
-    fluidColor = clampSaturation(fluidColor, 0.2, 1.4); // Adaptive saturation compression
+    fluidColor = clampSaturation(fluidColor, 0.4, 1.4); // Adaptive saturation compression
 
     // Handle transparency based on mode
     float finalAlpha = uOpacity;
@@ -1172,12 +1172,12 @@ export default function MeshArtBackground({
         gl={{
           antialias: false,
           alpha: true,
-          powerPreference: "high-performance",
+          powerPreference: "default",
           preserveDrawingBuffer: false,
           stencil: false,
           depth: false,
         }}
-        className="absolute inset-0"
+        className="absolute inset-0 brightness-125"
       >
         <Scene
           imageUrl={currentImageUrl}
