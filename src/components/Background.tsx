@@ -204,7 +204,7 @@ const fragmentShader = `
     // fluidColor *= mix(coolShift, warmShift, colorShift);
 
     // Apply saturation boost instead of color shifting
-    fluidColor = clampSaturation(fluidColor, 0.4, 1.4); // Adaptive saturation compression
+    fluidColor = clampSaturation(fluidColor, 0.0, 4.4); // Adaptive saturation compression
 
     // Handle transparency based on mode
     float finalAlpha = uOpacity;
