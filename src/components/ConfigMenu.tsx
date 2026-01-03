@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Settings, X } from "lucide-react";
 
 interface ConfigMenuProps {
-  onSave: (
-    apiUrl: string,
-    apiKey: string,
-    fullmode: boolean,
-    disappearOnLineEnd: boolean,
-  ) => void;
+  onSave: (config: {
+    apiUrl: string;
+    apiKey: string;
+    fullmode: boolean;
+    disappearOnLineEnd: boolean;
+  }) => void;
   currentApiUrl: string;
   currentApiKey: string;
   currentFullmode: boolean;
@@ -30,14 +30,14 @@ export function ConfigMenu({
   );
 
   const handleSave = () => {
-    onSave(apiUrl, apiKey, fullmode, disappearOnLineEnd);
+    onSave({ apiUrl, apiKey, fullmode, disappearOnLineEnd });
     setIsOpen(false);
   };
 
   const handleClear = () => {
     setApiUrl("");
     setApiKey("");
-    onSave("", "", false, false);
+    onSave({ apiUrl: "", apiKey: "", fullmode: false, disappearOnLineEnd: false });
     setIsOpen(false);
   };
 
