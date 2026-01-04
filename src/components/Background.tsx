@@ -1177,7 +1177,7 @@ export default function MeshArtBackground({
           stencil: false,
           depth: false,
         }}
-        className="absolute inset-0 brightness-115"
+        className="absolute inset-0"
       >
         <Scene
           imageUrl={currentImageUrl}
@@ -1198,6 +1198,13 @@ export default function MeshArtBackground({
           speedMultiplier={speedMultiplier}
         />
       </Canvas>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "rgba(0, 0, 0, 0.07)",
+          mixBlendMode: "multiply",
+        }}
+      />
     </div>
   );
 }

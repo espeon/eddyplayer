@@ -56,8 +56,8 @@ export function RichLyrics({
       },
       seg: { timeEnd: number; timeStart: number },
       activeColor: string = "rgb(255 255 255)",
-    ) => ({
-      ["--lyric-seg-percentage"]: `${
+    ) => {
+      const percentage =
         mapRange(
           segStatus.secondsAfterActive -
             (seg.timeEnd - seg.timeStart) * segStatus.percentage,
@@ -65,11 +65,17 @@ export function RichLyrics({
           2.1,
           100,
           0,
-        ) * mapRange(segStatus.secondsBeforeActive, 0, 0.3, 1, 0)
-      }%`,
-      color: `color-mix(in sRGB, ${activeColor} var(--lyric-seg-percentage), rgb(220 220 220 / 0.70))`,
-      filter: `drop-shadow(0 0px 4px ${activeColor.substring(0, -1)} / calc(var(--lyric-seg-percentage) * 0.35)))`,
-    }),
+        ) * mapRange(segStatus.secondsBeforeActive, 0, 0.3, 1, 0);
+
+      // shadow opacity follows word progress (0-100%)
+      const shadowOpacity = percentage / 100;
+
+      return {
+        ["--lyric-seg-percentage"]: `${percentage}%`,
+        color: `color-mix(in sRGB, ${activeColor} var(--lyric-seg-percentage), rgb(220 220 220 / 0.70))`,
+        filter: `drop-shadow(0 1px 3px rgba(0,0,0,${0.9 * shadowOpacity})) drop-shadow(0 2px 6px rgba(0,0,0,${0.7 * shadowOpacity})) drop-shadow(0 4px 12px rgba(0,0,0,${0.5 * shadowOpacity}))`,
+      };
+    },
     [],
   );
 

@@ -59,6 +59,20 @@ export const BasicLyrics = memo(function BasicLyrics({
           lines.lines[i + 1]?.time ?? lines.linesEnd,
           0.5, //1000
         );
+
+        // fade shadow in as line approaches (3 seconds before)
+        const shadowOpacity = segStatus.isActive
+          ? 1
+          : segStatus.secondsBeforeActive > 0 &&
+              segStatus.secondsBeforeActive < 3
+            ? Math.max(
+                0.3,
+                Math.min(1, (3 - segStatus.secondsBeforeActive) / 3),
+              )
+            : segStatus.secondsBeforeActive > 0 || !isDisappearOnLineEnd
+              ? 0.3
+              : 0;
+
         return (
           <div
             key={String(i) + line.text}
@@ -69,6 +83,9 @@ export const BasicLyrics = memo(function BasicLyrics({
                   ? "scale-90 text-white/60"
                   : "text-white/0 scale-90"
             } ${isFullPage ? "2xl:text-6xl mb-6 md:mb-8 lg:mb-10 2xl:mb-12" : " mb-6 md:mb-8"} lg:transition-all lg:duration-500 ease-in-out`}
+            style={{
+              textShadow: `0 1px 3px rgba(50,50,50,${0.5 * shadowOpacity}), 0 2px 6px rgba(100,100,100,${0.7 * shadowOpacity}), 0 4px 12px rgba(110,110,110,${0.5 * shadowOpacity})`,
+            }}
           >
             <div
               ref={
