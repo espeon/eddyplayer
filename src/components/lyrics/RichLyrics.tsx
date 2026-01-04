@@ -118,7 +118,7 @@ export function RichLyrics({
                               textAlign: section.lyricPos as "center" | "left",
                             } as CSSProperties
                           }
-                          className={`transition-all bg-transparent duration-1000 ease-in-out lg:mb-2 2xl:mb-4 py-3 leading-tight origin-[--lyric-line-dir]
+                          className={`transition-all bg-transparent duration-1000 ease-in-out lg:mb-2 2xl:mb-4 py-3 leading-tight origin-(--lyric-line-dir)
                           ${segStatus.isActive ? "text-gray-200/75 scale-100" : segStatus.secondsAfterActive > 0.75 && isDisappearOnLineEnd ? "opacity-0 bg-green-300 scale-0 blur-3xl" : "scale-90"}`}
                         >
                           <div
@@ -162,7 +162,7 @@ export function RichLyrics({
                           })}
                           {line.bgVox && (
                             <div
-                              className={`transition-all bg-transparent duration-700 text-2xl md:text-3xl lg:text-4xl ${isFullPage && "xl:text-5xl"} origin-[--lyric-line-dir] ${
+                              className={`transition-all bg-transparent duration-700 text-2xl md:text-3xl lg:text-4xl ${isFullPage && "xl:text-5xl"} origin-(--lyric-line-dir) ${
                                 bgStatus?.isActive
                                   ? "text-gray-200/75 scale-100"
                                   : "scale-95 "

@@ -1,15 +1,15 @@
 import { useSmoothTimer } from "../hooks/useSmoothTimer";
 
 interface ProgressBarProps {
-  progress: number;
   position: number;
   duration: number;
   paused: boolean;
+  onToggle?: () => void;
 }
 
-export function ProgressBar({ position, duration, paused }: ProgressBarProps) {
+export function ProgressBar({ position, duration, paused, onToggle }: ProgressBarProps) {
   const { currentTime } = useSmoothTimer({
-    duration: duration,
+    duration,
     currentTime: position,
     throttleBy: 250,
     isActivelyPlaying: !paused,
@@ -25,7 +25,10 @@ export function ProgressBar({ position, duration, paused }: ProgressBarProps) {
 
   return (
     <div className="space-y-2">
-      <div className="h-1 bg-white/20 rounded-full overflow-hidden">
+      <div
+        className="h-1 bg-white/20 rounded-full overflow-hidden cursor-pointer"
+        onClick={onToggle}
+      >
         <div
           className="h-full bg-white rounded-full"
           style={{

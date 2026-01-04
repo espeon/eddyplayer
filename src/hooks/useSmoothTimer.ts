@@ -27,7 +27,10 @@ export interface TimerControls {
  * @param callback - A callback function to be called whenever the timer updates.
  * @param delay - The delay in milliseconds before the callback is called.
  */
-export const useThrottle = (callback: Function, delay: number) => {
+export const useThrottle = <T extends unknown[]>(
+  callback: (...args: T) => void,
+  delay: number,
+) => {
   const lastCall = useRef(0);
 
   return useCallback(

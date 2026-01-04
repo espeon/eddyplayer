@@ -3,11 +3,7 @@ import { ScrollingText } from "./scrollText";
 
 interface TrackInfoProps {
   title: string;
-  artists: [
-    {
-      name: string;
-    },
-  ];
+  artists: Array<{ name: string }>;
   albumTitle: string;
 }
 
