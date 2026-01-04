@@ -20,8 +20,12 @@ function ConfigScreen() {
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black flex items-center justify-center p-4">
       <div className="bg-black/30 backdrop-blur-xl rounded-xl p-8 shadow-2xl max-w-md w-full">
-        <h1 className="text-2xl font-bold text-white mb-6">Get started with EddyPlayer</h1>
-        <p className="text-white/70 mb-8">Please configure your API settings to continue.</p>
+        <h1 className="text-2xl font-bold text-white mb-6">
+          Get started with EddyPlayer
+        </h1>
+        <p className="text-white/70 mb-8">
+          Please configure your API settings to continue.
+        </p>
         <ConfigMenu
           onSave={updateConfig}
           currentApiUrl={config.apiUrl}
@@ -65,15 +69,10 @@ function PlayerContent() {
   return (
     <>
       <CrossFade timeout={600} contentKey={nowPlaying.albumArt}>
-        <div
-          className="fixed inset-0 -z-10"
-          style={{
-            opacity: 0.35,
-            transition: "opacity 0.6s ease-in-out",
-          }}
-        >
-          <MeshArtBackground imageUrl={nowPlaying.albumArt} backgroundOpacity={1} />
-        </div>
+        <MeshArtBackground
+          imageUrl={nowPlaying.albumArt}
+          backgroundOpacity={1}
+        />
       </CrossFade>
 
       <div className="min-h-screen flex items-center justify-center transition-all duration-1000 relative">

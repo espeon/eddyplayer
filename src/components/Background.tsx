@@ -1177,7 +1177,7 @@ export default function MeshArtBackground({
           stencil: false,
           depth: false,
         }}
-        className="absolute inset-0 brightness-250"
+        className="absolute inset-0 brightness-115"
       >
         <Scene
           imageUrl={currentImageUrl}
