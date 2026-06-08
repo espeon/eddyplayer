@@ -16,6 +16,7 @@ const defaultConfig: Config = {
   currentMode: "lyrics",
   fullmode: false,
   disappearOnLineEnd: false,
+  umiBaseUrl: "https://umi.uwu.wang/lyrics",
 };
 
 export const ConfigContext = createContext<ConfigContextValue | null>(null);

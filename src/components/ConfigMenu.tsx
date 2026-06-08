@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Settings, X } from "lucide-react";
+import { clearLyricsCache } from "../hooks/useCache";
 
 interface ConfigMenuProps {
   onSave: (config: {
@@ -7,11 +8,13 @@ interface ConfigMenuProps {
     apiKey: string;
     fullmode: boolean;
     disappearOnLineEnd: boolean;
+    umiBaseUrl: string;
   }) => void;
   currentApiUrl: string;
   currentApiKey: string;
   currentFullmode: boolean;
   currentDisappearOnLineEnd: boolean;
+  currentUmiBaseUrl: string;
 }
 
 export function ConfigMenu({
@@ -20,6 +23,7 @@ export function ConfigMenu({
   currentApiKey,
   currentFullmode,
   currentDisappearOnLineEnd,
+  currentUmiBaseUrl,
 }: ConfigMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [apiUrl, setApiUrl] = useState(currentApiUrl);
@@ -28,17 +32,28 @@ export function ConfigMenu({
   const [disappearOnLineEnd, setDisappearOnLineEnd] = useState(
     currentDisappearOnLineEnd,
   );
+  const [umiBaseUrl, setUmiBaseUrl] = useState(currentUmiBaseUrl);
+  const [cacheCleared, setCacheCleared] = useState(false);
 
   const handleSave = () => {
-    onSave({ apiUrl, apiKey, fullmode, disappearOnLineEnd });
+    onSave({ apiUrl, apiKey, fullmode, disappearOnLineEnd, umiBaseUrl });
     setIsOpen(false);
   };
 
   const handleClear = () => {
     setApiUrl("");
     setApiKey("");
-    onSave({ apiUrl: "", apiKey: "", fullmode: false, disappearOnLineEnd: false });
+    setFullmode(false);
+    setDisappearOnLineEnd(false);
+    setUmiBaseUrl("");
+    onSave({ apiUrl: "", apiKey: "", fullmode: false, disappearOnLineEnd: false, umiBaseUrl: "" });
     setIsOpen(false);
+  };
+
+  const handleClearCache = () => {
+    clearLyricsCache();
+    setCacheCleared(true);
+    setTimeout(() => setCacheCleared(false), 2000);
   };
 
   return (
@@ -135,6 +150,23 @@ export function ConfigMenu({
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-white/70 mb-1">
+                  UMI lyrics server URL
+                </label>
+                <label className="block text-xs font-medium text-white/70 mb-1">
+                  Base URL for the UMI lyrics service. Defaults to the public
+                  instance.
+                </label>
+                <input
+                  type="text"
+                  value={umiBaseUrl}
+                  onChange={(e) => setUmiBaseUrl(e.target.value)}
+                  className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white border border-white/10 focus:border-white/30 focus:outline-hidden"
+                  placeholder="https://umi.uwu.wang/lyrics"
+                />
+              </div>
+
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={handleSave}
@@ -143,10 +175,19 @@ export function ConfigMenu({
                   Save
                 </button>
                 <button
-                  onClick={handleClear}
-                  className="flex-1 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg transition-colors"
+                  onClick={handleClearCache}
+                  className="flex-1 px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-lg transition-colors"
                 >
-                  Clear
+                  {cacheCleared ? "Cleared!" : "Clear cache"}
+                </button>
+              </div>
+
+              <div>
+                <button
+                  onClick={handleClear}
+                  className="w-full px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg transition-colors"
+                >
+                  Clear all settings
                 </button>
               </div>
             </div>

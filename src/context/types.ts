@@ -23,4 +23,5 @@ export interface Config {
   currentMode: PlaybackMode;
   fullmode: boolean;
   disappearOnLineEnd: boolean;
+  umiBaseUrl: string;
 }

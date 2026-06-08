@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { JLF, SyncedLines, SyncedMetadata } from "../types/lyrics";
 import { useCache } from "./useCache";
 
@@ -105,6 +105,7 @@ async function fetchUMI(
   artistName: string,
   trackName: string,
   albumName?: string,
+  baseUrl?: string,
 ): Promise<JLF> {
   const params = new URLSearchParams({
     artist: artistName,
@@ -113,8 +114,7 @@ async function fetchUMI(
   });
 
   const response = await fetchWithTimeout(
-    // todo: configure umi endpoint!!!
-    `https://umi.uwu.wang/lyrics?${params}`,
+    `${baseUrl || "https://umi.uwu.wang/lyrics"}?${params}`,
   );
 
   if (!response.ok) {
@@ -131,12 +131,16 @@ export function useLyrics(
   trackName?: string,
   albumName?: string,
   duration?: number,
+  umiBaseUrl?: string,
 ) {
   const [lyrics, setLyrics] = useState<JLF | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const cacheKey = `lyrics-${artistName}-${trackName}-${albumName ?? ""}`;
+  const cacheKey = useMemo(
+    () => `lyrics-${artistName}-${trackName}-${albumName ?? ""}`,
+    [artistName, trackName, albumName],
+  );
   const { getCachedData, setCachedData } = useCache<JLF>(cacheKey);
 
   useEffect(() => {
@@ -156,9 +160,8 @@ export function useLyrics(
       setError(null);
 
       try {
-        // Fetch from both sources concurrently
         const [umiResult, lrcLibResult] = await Promise.allSettled([
-          fetchUMI(artistName, trackName, albumName),
+          fetchUMI(artistName, trackName, albumName, umiBaseUrl),
           fetchLRCLib(artistName, trackName, albumName, duration),
         ]);
 
@@ -170,28 +173,22 @@ export function useLyrics(
         const lrcLibLyrics =
           lrcLibResult.status === "fulfilled" ? lrcLibResult.value : null;
 
-        // Decide which lyrics to use
         if (umiLyrics?.richsync) {
-          // If UMI has richsync, use it
           setLyrics(umiLyrics);
           setCachedData(umiLyrics);
         } else if (
           lrcLibLyrics &&
           (lrcLibLyrics as JLF).lines?.lines?.length > 0
         ) {
-          // If LRCLib has lyrics, use it
           setLyrics(lrcLibLyrics);
           setCachedData(lrcLibLyrics);
         } else if (umiLyrics) {
-          // Fallback to UMI if available
           setLyrics(umiLyrics);
           setCachedData(umiLyrics);
         } else if (lrcLibLyrics) {
-          // Last resort: use LRCLib even if empty
           setLyrics(lrcLibLyrics);
           setCachedData(lrcLibLyrics);
         } else {
-          // No lyrics found from either source
           throw new Error("No lyrics found");
         }
       } catch (err) {
@@ -204,7 +201,7 @@ export function useLyrics(
     };
 
     fetchLyrics();
-  }, [artistName, trackName, albumName, duration]);
+  }, [artistName, trackName, albumName, duration, umiBaseUrl]);
 
   return { lyrics, isLoading, error };
 }

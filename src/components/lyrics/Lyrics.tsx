@@ -14,6 +14,7 @@ interface LyricsProps {
   paused: boolean;
   isFullPage: boolean;
   isDisappearOnLineEnd: boolean;
+  umiBaseUrl?: string;
 }
 
 export function Lyrics({
@@ -25,12 +26,14 @@ export function Lyrics({
   paused,
   isFullPage,
   isDisappearOnLineEnd,
+  umiBaseUrl,
 }: LyricsProps) {
   const { lyrics, isLoading, error } = useLyrics(
     artistName,
     trackName,
     albumName,
     duration,
+    umiBaseUrl,
   );
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const smt = useSmoothTimer({

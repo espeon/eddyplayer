@@ -32,6 +32,7 @@ function ConfigScreen() {
           currentApiKey={config.apiKey}
           currentFullmode={config.fullmode}
           currentDisappearOnLineEnd={config.disappearOnLineEnd}
+          currentUmiBaseUrl={config.umiBaseUrl}
         />
       </div>
     </div>
@@ -82,6 +83,7 @@ function PlayerContent() {
           currentApiKey={config.apiKey}
           currentFullmode={config.fullmode}
           currentDisappearOnLineEnd={config.disappearOnLineEnd}
+          currentUmiBaseUrl={config.umiBaseUrl}
         />
 
         <LyricsToggle
@@ -152,6 +154,7 @@ function PlayerContent() {
                 paused={nowPlaying.paused}
                 isFullPage={config.fullmode}
                 isDisappearOnLineEnd={config.disappearOnLineEnd}
+                umiBaseUrl={config.umiBaseUrl}
               />
             </div>
           )}
