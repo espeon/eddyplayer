@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=23.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -40,6 +43,9 @@
     "vite": "^7.3.0"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
-  }
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "packageManager": "pnpm@10.33.0"
 }
